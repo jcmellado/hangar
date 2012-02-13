@@ -142,7 +142,7 @@ AC.Object.prototype.defaultValues = function(){
   this.textureRepeat = [1, 1];
   this.rotation = [1, 0, 0, 0, 1, 0, 0, 0, 1];
   this.translation = [0, 0, 0];
-  this.crease = 61;
+  this.crease = 61.0;
 };
 
 AC.Object.prototype.parseVertices = function(stream, parentTransform){
