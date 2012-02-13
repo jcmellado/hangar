@@ -28,7 +28,7 @@ References:
 
 var SGI = SGI || {};
 
-SGI.Storages = {
+SGI.Storage = {
   VERBATIM: 0,
   RLE: 1
 };
@@ -44,10 +44,10 @@ SGI.File = function(data){
 
 SGI.File.prototype.parse = function(stream){
   switch(this.header.storage){
-    case SGI.Storages.VERBATIM:
+    case SGI.Storage.VERBATIM:
       this.verbatim(stream);
       break;
-    case SGI.Storages.RLE:
+    case SGI.Storage.RLE:
       this.rle(stream);
       break;
   }
