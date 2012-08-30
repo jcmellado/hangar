@@ -163,7 +163,7 @@ HG.Trackball.prototype.onMouseDown=function(a){var b=this;this.down=!0;this.x=a.
 HG.Trackball.prototype.onMouseUp=function(a){this.down=!1;document.removeEventListener("mouseup",this.mu,!1);document.removeEventListener("mousemove",this.mm,!1);a.preventDefault()};HG.Trackball.prototype.onMouseMove=function(a){var b;if(this.down&&(b=a.clientX-this.canvas.offsetLeft,a=a.clientY-this.canvas.offsetTop,b!==this.x||a!==this.y))this.track(this.x,this.y,b,a),this.x=b,this.y=a};
 HG.Trackball.prototype.onMouseWheel=function(a){this.camera.zoom(Math.max(0.05,1-0.05*(a.wheelDelta?a.wheelDelta/120:-a.detail)));a.preventDefault();return!1};HG.Trackball.prototype.track=function(a,b,c,d){a=this.project(a,b);c=this.project(c,d);d=Math.acos(vec3.dot(a,c));b=vec3.create();d&&(vec3.cross(a,c,b),vec3.normalize(b),this.camera.rotate(-d,b))};
 HG.Trackball.prototype.project=function(a,b){var c=this.camera.localAxis(),d=this.projectBall(a,b),e=vec3.create();vec3.scale(c[0],d[0]);vec3.scale(c[1],d[1]);vec3.scale(c[2],d[2]);vec3.add(c[0],vec3.add(c[1],c[2]),e);vec3.normalize(e);return e};HG.Trackball.prototype.projectBall=function(a,b){var c=vec3.create();c[0]=a/(0.5*this.canvas.width)-1;c[1]=1-b/(0.5*this.canvas.height);c[2]=1-c[0]*c[0]-c[1]*c[1];c[2]=0<c[2]?Math.sqrt(c[2]):0;return c};HG.Viewer=function(a){this.canvas=a;this.renderer=new HG.Renderer(a)};
-HG.Viewer.prototype.show=function(a,b,c){HG.Loader.loadText(a,this,"onModelLoaded",{filename:a,setup:b,callback:c})};HG.Viewer.prototype.onModelLoaded=function(a,b){var c=new AC.File(a),c=new HG.Scene(c),d=new HG.Camera(b.setup||this.fitToBoundingBox(c));this.renderer.setScene(this.getPath(b.filename),c,d);this.trackball=new HG.Trackball(this.canvas,d);this.tick();b.callback()};HG.Viewer.prototype.tick=function(){var a=this;requestAnimationFrame(function(){a.tick()});this.renderer.render()};
+HG.Viewer.prototype.show=function(a,b){b.filename=a,HG.Loader.loadText(a,this,"onModelLoaded",b)};HG.Viewer.prototype.onModelLoaded=function(a,b){var c=new AC.File(a),c=new HG.Scene(c),d=new HG.Camera(b.setup||this.fitToBoundingBox(c));this.renderer.setScene(b.texturePath||this.getPath(b.filename),c,d);this.trackball=new HG.Trackball(this.canvas,d);this.tick();b.callback()};HG.Viewer.prototype.tick=function(){var a=this;requestAnimationFrame(function(){a.tick()});this.renderer.render()};
 HG.Viewer.prototype.onResize=function(a,b){this.renderer.resize(a,b)};HG.Viewer.prototype.fitToBoundingBox=function(a){var b={},c=a.boundingBox,a=vec3.create();b.eye=vec3.create();b.poi=vec3.create();b.up=[0,1,0];b.fov=45;b.eye[0]=c.xmin;b.eye[1]=c.ymax;b.eye[2]=c.zmax;b.poi[0]=0.5*(c.xmax+c.xmin);b.poi[1]=0.5*(c.ymax+c.ymin);b.poi[2]=0.5*(c.zmax+c.zmin);vec3.subtract(b.eye,b.poi,a);c=vec3.length(a)/Math.tan(0.5*b.fov*(Math.PI/180));vec3.normalize(a);vec3.scale(a,c);b.eye=a;return b};
 HG.Viewer.prototype.getPath=function(a){var b="",c;c=a.lastIndexOf("/");-1!==c&&(b=a.substring(0,c+1));return b};
 </script>
@@ -232,7 +232,7 @@ function showModel(model){
     "<p id='name'>" + model.name + "</p>" +
     "<p id='author'>" + model.author + "</p>";
   
-  viewer.show(model.file, model.setup, onLoaded);
+  viewer.show(model.file, {setup: model.setup, callback: onLoaded} );
 };
 
 function onLoaded(){
