@@ -25,8 +25,8 @@ HG.Viewer = function(canvas){
   this.renderer = new HG.Renderer(canvas);
 };
 
-HG.Viewer.prototype.show = function(filename, setup, callback){
-  var params = {filename: filename, setup: setup, callback:callback};
+HG.Viewer.prototype.show = function(filename, params){
+  params.filename = filename;
 
   HG.Loader.loadText(filename, this, "onModelLoaded", params);
 };
@@ -36,7 +36,7 @@ HG.Viewer.prototype.onModelLoaded = function(data, params){
       scene = new HG.Scene(file),
       camera = new HG.Camera( params.setup || this.fitToBoundingBox(scene) );
 
-  this.renderer.setScene( this.getPath(params.filename), scene, camera);
+  this.renderer.setScene(params.texturePath || this.getPath(params.filename), scene, camera);
 
   this.trackball = new HG.Trackball(this.canvas, camera);
   
