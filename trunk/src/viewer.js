@@ -42,7 +42,9 @@ HG.Viewer.prototype.onModelLoaded = function(data, params){
   
   this.tick();
   
-  params.callback();
+  if (params.callback){
+    params.callback();
+  }
 };
 
 HG.Viewer.prototype.tick = function(){
