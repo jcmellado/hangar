@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2012 Juan Mellado
+Copyright (c) 2013 Juan Mellado
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -151,7 +151,7 @@ AC.Object.prototype.parseVertices = function(stream, parentTransform){
       i = 0;
   
   this.compose(transform, this.rotation, this.translation);
-  mat4.multiply(transform, parentTransform);
+  mat4.multiply(parentTransform, transform, transform);
 
   for (; i < numvert; ++ i){
     vertice[0] = stream.readFloat();
@@ -183,7 +183,7 @@ AC.Object.prototype.parseKids = function(stream, kids, parentTransform){
   var children = [], transform = mat4.identity(), i = 0;
   
   this.compose(transform, this.rotation, this.translation);
-  mat4.multiply(transform, parentTransform);
+  mat4.multiply(parentTransform, transform, transform);
   
   for (; i < kids; ++ i){
     stream.readToken(); //OBJECT
