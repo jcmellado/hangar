@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 
 HG.Renderer = function(canvas){
-  this.gl = canvas.getContext("experimental-webgl", {alpha:false} );
+  this.gl = canvas.getContext("webgl", {alpha:false}) || canvas.getContext("experimental-webgl", {alpha:false});
 };
 
 HG.Renderer.BackgroundColor = [0.5, 0.5, 0.65, 1.0];
