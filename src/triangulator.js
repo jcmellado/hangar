@@ -44,7 +44,7 @@ AC.Triangulator.triangulate = function(vertices){
       return null;
     }
 
-    u = v;
+    u = v; if (u >= len){ u = 0; }
     v = u + 1; if (v >= len){ v = 0; }
     w = v + 1; if (w >= len){ w = 0; }
 
