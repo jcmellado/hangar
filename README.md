@@ -5,13 +5,13 @@ The [AC3D file format](http://www.inivis.com/ac3d/man/ac3dfileformat.html) (.ac)
 Hangar supports the [SGI image file format](ftp://ftp.sgi.com/graphics/SGIIMAGESPEC) (.sgi, .rgba, .rgb, .ra, .bw) used for some old models to store textures.
 
 ### Demo ###
-[Flight Gallery](http://inmensia.com/files/hangar/flight-gallery/index.html) is a basic 3D FlightGear model viewer showing library capacities.
+[Flight Gallery](https://jcmellado.github.io/showcase/js/hangar/index.html) is a basic 3D FlightGear model viewer showing library capacities.
 
 Use mouse button and wheel to have some fun!
 
 ### Video ###
 
-[![Flight Gallery](http://img.youtube.com/vi/CEUETrP_SHY/0.jpg)](http://www.youtube.com/watch?v=CEUETrP_SHY)
+[Flight Gallery](https://jcmellado.github.io/showcase/videos/Hangar_%20Rendering%203D%20FlightGear%20models%20with%20JavaScript.mp4)
 
 ### Viewer ###
 To render an .ac file onto a canvas you just must to create an `HG.Viewer` object and call the `show` function with the name (url) of the .ac file:
